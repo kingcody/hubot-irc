@@ -116,6 +116,7 @@ class IrcBot extends Adapter
       connectCommand: process.env.HUBOT_IRC_CONNECT_COMMAND
       fakessl:  process.env.HUBOT_IRC_SERVER_FAKE_SSL?
       certExpired: process.env.HUBOT_IRC_SERVER_CERT_EXPIRED?
+      rejoin:   process.env.HUBOT_IRC_REJOIN?
       unflood:  process.env.HUBOT_IRC_UNFLOOD
       debug:    process.env.HUBOT_IRC_DEBUG?
       usessl:   process.env.HUBOT_IRC_USESSL?
@@ -131,6 +132,7 @@ class IrcBot extends Adapter
       secure: options.usessl
       selfSigned: options.fakessl
       certExpired: options.certExpired
+      autoRejoin: options.rejoin
       floodProtection: @unfloodProtection(options.unflood),
       floodProtectionDelay: @unfloodProtectionDelay(options.unflood),
 
@@ -228,6 +230,7 @@ class IrcBot extends Adapter
     self = @
     @bot.disconnect 'TTMF!!', () ->
       console.log('Disconnected from Server')
+      self.emit "adapterClose"
 
   _getTargetFromEnvelope: (envelope) ->
     user = null
