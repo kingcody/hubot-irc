@@ -226,9 +226,9 @@ class IrcBot extends Adapter
 
   close: ->
     self = @
+    console.log('HELP ME')
     @bot.disconnect 'TTMF!!', () ->
       console.log('Disconnected from Server')
-      self.receive new LeaveMessage(null)
 
   _getTargetFromEnvelope: (envelope) ->
     user = null
