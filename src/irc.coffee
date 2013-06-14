@@ -61,7 +61,9 @@ class IrcBot extends Adapter
     return @userForName name
 
   getUserFromId: (id) ->
-    return @robot.brain.userForId id
+    return @robot.brain.userForId(id) if @robot.brain?.userForId?
+
+    return @userForId id
 
   createUser: (channel, from) ->
       user = @getUserFromName from
